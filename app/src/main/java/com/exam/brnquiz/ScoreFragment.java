@@ -29,14 +29,14 @@ public class ScoreFragment extends Fragment {
         scoreValue = view.findViewById(R.id.score_value);
         scoreNumber = view.findViewById(R.id.score_number);
 
-        scoreValue.setText("Score:");
+        scoreValue.setText(R.string.score);
         scoreNumber.setText(String.valueOf(score));
 
         return view;
     }
 
     public void updateScore() {
-        score += 100;
+        score ++;
         if (scoreNumber != null) {
             scoreNumber.setText(String.valueOf(score));
         }

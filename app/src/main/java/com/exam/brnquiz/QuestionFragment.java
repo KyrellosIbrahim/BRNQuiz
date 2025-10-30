@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,12 +31,12 @@ public class QuestionFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         String[] answers = {
+                "Medellin",
+                "Madrid",
                 "Paris",
-                "London",
-                "Berlin",
-                "Madrid"
+                "Bogota"
         };
-        question = new Question("What is the capital of France?", answers, 0);
+        question = new Question("What is the capital of Colombia?", answers, 3);
     }
 
     @Override
@@ -79,10 +80,11 @@ public class QuestionFragment extends Fragment {
     }
     public void handleAnswer(int selectedIndex) {
         if(question.isCorrectAnswer(selectedIndex)) {
-            Snackbar.make(getView(), "Correct!", Snackbar.LENGTH_SHORT).show();
-            updateScore();
+            Toast.makeText(getContext(), "Yay! +1 Point", Toast.LENGTH_SHORT).show();
+            if (getView() != null)
+                updateScore();
         } else {
-            Snackbar.make(getView(), "Incorrect.", Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Wrong! Use your BRN(AI).", Toast.LENGTH_SHORT).show();
         }
         submitButton.setEnabled(false);
         optionsList.setEnabled(false);
