@@ -1,6 +1,8 @@
 package com.exam.brnquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class IntroActivity extends AppCompatActivity {
+    Button beginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +19,12 @@ public class IntroActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
+        beginButton = findViewById(R.id.button);
+        beginButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(IntroActivity.this, QuizActivity.class);
+                    startActivity(intent);
+                }
+        );
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
