@@ -44,9 +44,9 @@ public class QuestionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_question, container, false);
 
-        questionText = getView().findViewById(R.id.questionText);
-        optionsList = getView().findViewById(R.id.optionsList);
-        submitButton = getView().findViewById(R.id.submitButton);
+        questionText = view.findViewById(R.id.questionText);
+        optionsList = view.findViewById(R.id.optionsList);
+        submitButton = view.findViewById(R.id.submitButton);
 
         questionText.setText(question.getQuestionText());
         setupListView();
@@ -58,13 +58,13 @@ public class QuestionFragment extends Fragment {
     public void setupListView() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_single_choice,
                 question.getOptions()
         );
 
         optionsList.setAdapter(adapter);
         optionsList.setOnItemClickListener((parent, view, position, id) -> {
-            handleAnswer(position);
+            selectedAnswerIndex = position;
         });
     }
 
@@ -85,10 +85,14 @@ public class QuestionFragment extends Fragment {
             Snackbar.make(getView(), "Incorrect.", Snackbar.LENGTH_SHORT).show();
         }
         submitButton.setEnabled(false);
+        optionsList.setEnabled(false);
         selectedAnswerIndex = -1;
     }
 
     private void updateScore() {
-        // TODO: Implement
+        ScoreFragment scoreFragment = (ScoreFragment) getParentFragmentManager().findFragmentById(R.id.scoreFrag);
+        if (scoreFragment != null) {
+            scoreFragment.updateScore();
+        }
     }
 }
